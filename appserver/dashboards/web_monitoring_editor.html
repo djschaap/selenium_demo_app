@@ -54,6 +54,17 @@ app_name = url.split("/")[3]
 
 	<div class="row-fluid">
 		<div class="span2">
+			<h3>Override Index</h3>
+			<input type="text" id="itemIndex" value="" class="editable input-block-level input-lg" />
+		</div>
+		<div class="span2">
+			<h3>Override Host</h3>
+			<input type="text" id="itemHost" value="" class="editable input-block-level input-lg" />
+		</div>
+	</div>
+
+	<div class="row-fluid">
+		<div class="span2">
 			<h3>To:</h3>
 			<input type="text" id="emailto" value="" class="editable input-block-level input-lg" />
 		</div>
@@ -374,6 +385,8 @@ require([
                 $("#itemId").val("");
                 $("#itemURL").val("");
                 $("#itemBrowser").val("Chrome");
+                $("#itemIndex").val("web");
+                $("#itemHost").val("");
                 addStep();
             }
             else {
@@ -381,6 +394,8 @@ require([
                 $("#itemURL").val(seleniumTestSuite.URL);
                 $("#itemBrowser").val(seleniumTestSuite.BROWSER);
                 $("#testEnabled").prop('checked', seleniumTestSuite.ENABLED);
+                $("#itemIndex").val(seleniumTestSuite.ITEM_INDEX);
+                $("#itemHost").val(seleniumTestSuite.ITEM_HOST);
                 $("#emailto").val(seleniumTestSuite.EMAILTO);
                 $("#emailcc").val(seleniumTestSuite.EMAILCC);
                 $("#emailbcc").val(seleniumTestSuite.EMAILBCC);
@@ -542,6 +557,8 @@ require([
                 ITEM_ID: $("#itemId").val(),
                 URL: $("#itemURL").val(),
                 ENABLED: $("#testEnabled").prop("checked"),
+                ITEM_INDEX: $("#itemIndex").val(),
+                ITEM_HOST: $("#itemHost").val(),
                 BROWSER: $("#itemBrowser").val(),
                 EMAILTO: $("#emailto").val(),
                 EMAILCC: $("#emailcc").val(),

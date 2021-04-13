@@ -1,7 +1,7 @@
 <form theme="light">
   <label>Website Performance Details</label>
   <search id="performance_logs">
-    <query>| savedsearch "website_performance_details" item_id="$item_id$"</query>
+    <query>| savedsearch "website_performance_details" index=$index|s$ item_id=$item_id|s$</query>
     <earliest>$earliest$</earliest>
     <latest>$latest$</latest>
   </search>
@@ -44,10 +44,14 @@
         <latest>now</latest>
       </default>
     </input>
+    <input type="text" token="index" searchWhenChanged="true">
+      <label>Index</label>
+      <default>web</default>
+    </input>
     <input type="dropdown" token="item_id" searchWhenChanged="true">
       <label>Application Name</label>
       <search>
-        <query>index=web source=web_monitoring sourcetype=_json 
+        <query>index=$index|s$ source=web_monitoring sourcetype=website_monitoring 
 | stats count by application.item_id
 | rename application.item_id as item_id
 | sort item_id</query>
