@@ -67,7 +67,7 @@
   <row depends="$item_id$">
     <panel>
       <viz type="event-timeline-viz.event-timeline-viz">
-        <title>Page Availibility</title>
+        <title>Page Availability</title>
         <search base="performance_logs">
           <query>| table _time, results.status, results.error 
 | rename results.status as label, _time as start, environment.browser.name as browser, results.error as error 
