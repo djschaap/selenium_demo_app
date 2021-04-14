@@ -54,6 +54,10 @@ app_name = url.split("/")[3]
 
 	<div class="row-fluid">
 		<div class="span2">
+			<h3>Override Selenium Hub URL</h3>
+			<input type="text" id="seleniumURL" value="" class="editable input-block-level input-lg" />
+		</div>
+		<div class="span2">
 			<h3>Override Index</h3>
 			<input type="text" id="itemIndex" value="" class="editable input-block-level input-lg" />
 		</div>
@@ -394,6 +398,7 @@ require([
                 $("#itemURL").val(seleniumTestSuite.URL);
                 $("#itemBrowser").val(seleniumTestSuite.BROWSER);
                 $("#testEnabled").prop('checked', seleniumTestSuite.ENABLED);
+                $("#seleniumURL").val(seleniumTestSuite.SELENIUM_URL);
                 $("#itemIndex").val(seleniumTestSuite.ITEM_INDEX);
                 $("#itemHost").val(seleniumTestSuite.ITEM_HOST);
                 $("#emailto").val(seleniumTestSuite.EMAILTO);
@@ -557,6 +562,7 @@ require([
                 ITEM_ID: $("#itemId").val(),
                 URL: $("#itemURL").val(),
                 ENABLED: $("#testEnabled").prop("checked"),
+                SELENIUM_URL: $("#seleniumURL").val(),
                 ITEM_INDEX: $("#itemIndex").val(),
                 ITEM_HOST: $("#itemHost").val(),
                 BROWSER: $("#itemBrowser").val(),
