@@ -24,7 +24,7 @@ If you want a friendlier interface to the Splunk REST API, use the
 :mod:`splunklib.client` module.
 """
 
-from __future__ import absolute_import
+
 import logging
 import socket
 import ssl
@@ -91,7 +91,7 @@ def _parse_cookies(cookie_str, dictionary):
     :type dictionary: ``dict``
     """
     parsed_cookie = six.moves.http_cookies.SimpleCookie(cookie_str)
-    for cookie in parsed_cookie.values():
+    for cookie in list(parsed_cookie.values()):
         dictionary[cookie.key] = cookie.coded_value
 
 

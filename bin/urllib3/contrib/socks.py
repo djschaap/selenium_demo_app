@@ -21,10 +21,10 @@ Known Limitations:
 - Currently PySocks does not support IPv6 connections to the SOCKS proxy. Any
   such connection attempt will fail.
 """
-from __future__ import absolute_import
+
 
 try:
-    import socks
+    from . import socks
 except ImportError:
     import warnings
     from ..exceptions import DependencyWarning

@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from __future__ import with_statement
+
 
 import base64
 import copy
@@ -28,7 +28,7 @@ import tempfile
 import zipfile
 
 try:
-    from cStringIO import StringIO as BytesIO
+    from io import StringIO as BytesIO
 except ImportError:
     from io import BytesIO
 
@@ -95,7 +95,7 @@ class FirefoxProfile(object):
         self._install_extension(extension)
 
     def update_preferences(self):
-        for key, value in FirefoxProfile.DEFAULT_PREFERENCES['frozen'].items():
+        for key, value in list(FirefoxProfile.DEFAULT_PREFERENCES['frozen'].items()):
             self.default_preferences[key] = value
         self._write_user_prefs(self.default_preferences)
 
@@ -222,7 +222,7 @@ class FirefoxProfile(object):
         writes the current user prefs dictionary to disk
         """
         with open(self.userPrefs, "w") as f:
-            for key, value in user_prefs.items():
+            for key, value in list(user_prefs.items()):
                 f.write('user_pref("%s", %s);\n' % (key, json.dumps(value)))
 
     def _read_existing_userjs(self, userjs):
@@ -363,7 +363,7 @@ class FirefoxProfile(object):
             for node in description.childNodes:
                 # Remove the namespace prefix from the tag for comparison
                 entry = node.nodeName.replace(em, "")
-                if entry in details.keys():
+                if entry in list(details.keys()):
                     details.update({entry: get_text(node)})
             if details.get('id') is None:
                 for i in range(description.attributes.length):

@@ -236,10 +236,10 @@ class UserAgentsTest(unittest.TestCase):
     def test_unicode_strings(self):
         try:
             # Python 2
-            unicode_ua_str = unicode(devices['iphone']['user_agent'])
+            unicode_ua_str = str(devices['iphone']['user_agent'])
             self.assertEqual(unicode_ua_str,
-                             u"iPhone / iOS 5.1 / Mobile Safari 5.1")
-            self.assertTrue(isinstance(unicode_ua_str, unicode))
+                             "iPhone / iOS 5.1 / Mobile Safari 5.1")
+            self.assertTrue(isinstance(unicode_ua_str, str))
         except NameError:
             # Python 3
             unicode_ua_str = str(devices['iphone']['user_agent'])

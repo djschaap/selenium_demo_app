@@ -1764,7 +1764,7 @@ class Stanza(Entity):
         # The stanza endpoint returns all the keys at the same level in the XML as the eai information
         # and 'disabled', so to get an accurate length, we have to filter those out and have just
         # the stanza keys.
-        return len([x for x in self._state.content.keys()
+        return len([x for x in list(self._state.content.keys())
                     if not x.startswith('eai') and x != 'disabled'])
 
 
@@ -1950,7 +1950,7 @@ class Index(Entity):
 
         # If we have cookie(s), use them instead of "Authorization: ..."
         if self.service.has_cookies():
-            cookie_or_auth_header = "Cookie: %s\r\n" % _make_cookie_header(self.service.get_cookies().items())
+            cookie_or_auth_header = "Cookie: %s\r\n" % _make_cookie_header(list(self.service.get_cookies().items()))
 
         # Since we need to stream to the index connection, we have to keep
         # the connection open and use the Splunk extension headers to note
@@ -3578,7 +3578,7 @@ class KVStoreCollection(Entity):
         :return: Result of POST request
         """
         kwargs = {}
-        kwargs['index.' + name] = value if isinstance(value, basestring) else json.dumps(value)
+        kwargs['index.' + name] = value if isinstance(value, str) else json.dumps(value)
         return self.post(**kwargs)
 
     def update_field(self, name, value):

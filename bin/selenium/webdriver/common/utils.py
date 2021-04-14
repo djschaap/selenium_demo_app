@@ -22,10 +22,10 @@ import socket
 from selenium.webdriver.common.keys import Keys
 
 try:
-    basestring
+    str
 except NameError:
     # Python 3
-    basestring = str
+    str = str
 
 
 def free_port():

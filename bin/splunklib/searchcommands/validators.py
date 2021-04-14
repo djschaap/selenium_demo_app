@@ -14,7 +14,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+
 
 from json.encoder import encode_basestring_ascii as json_encode_string
 from collections import namedtuple
@@ -186,7 +186,7 @@ class Integer(Validator):
             return None
         try:
             if six.PY2:
-                value = long(value)
+                value = int(value)
             else:
                 value = int(value)
         except ValueError:

@@ -14,7 +14,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+
 
 # Absolute imports
 
@@ -300,7 +300,7 @@ class SearchCommand(object):
             except ValueError:
                 return value
 
-        info = ObjectView(dict(imap(lambda f_v: (convert_field(f_v[0]), convert_value(f_v[1])), izip(fields, values))))
+        info = ObjectView(dict([(convert_field(f_v[0]), convert_value(f_v[1])) for f_v in zip(fields, values)]))
 
         try:
             count_map = info.countMap
@@ -309,7 +309,7 @@ class SearchCommand(object):
         else:
             count_map = count_map.split(';')
             n = len(count_map)
-            info.countMap = dict(izip(islice(count_map, 0, n, 2), islice(count_map, 1, n, 2)))
+            info.countMap = dict(list(zip(islice(count_map, 0, n, 2), islice(count_map, 1, n, 2))))
 
         try:
             msg_type = info.msgType
@@ -317,7 +317,7 @@ class SearchCommand(object):
         except AttributeError:
             pass
         else:
-            messages = ifilter(lambda t_m: t_m[0] or t_m[1], izip(msg_type.split('\n'), msg_text.split('\n')))
+            messages = [t_m for t_m in zip(msg_type.split('\n'), msg_text.split('\n')) if t_m[0] or t_m[1]]
             info.msg = [Message(message) for message in messages]
             del info.msgType
 
@@ -908,12 +908,12 @@ class SearchCommand(object):
 
         if len(mv_fieldnames) == 0:
             for values in reader:
-                yield OrderedDict(izip(fieldnames, values))
+                yield OrderedDict(list(zip(fieldnames, values)))
             return
 
         for values in reader:
             record = OrderedDict()
-            for fieldname, value in izip(fieldnames, values):
+            for fieldname, value in zip(fieldnames, values):
                 if fieldname.startswith('__mv_'):
                     if len(value) > 0:
                         record[mv_fieldnames[fieldname]] = self._decode_list(value)
@@ -950,11 +950,11 @@ class SearchCommand(object):
 
                 if len(mv_fieldnames) == 0:
                     for values in reader:
-                        yield OrderedDict(izip(fieldnames, values))
+                        yield OrderedDict(list(zip(fieldnames, values)))
                 else:
                     for values in reader:
                         record = OrderedDict()
-                        for fieldname, value in izip(fieldnames, values):
+                        for fieldname, value in zip(fieldnames, values):
                             if fieldname.startswith('__mv_'):
                                 if len(value) > 0:
                                     record[mv_fieldnames[fieldname]] = self._decode_list(value)
@@ -1003,8 +1003,7 @@ class SearchCommand(object):
 
             """
             definitions = type(self).configuration_setting_definitions
-            settings = imap(
-                lambda setting: repr((setting.name, setting.__get__(self), setting.supporting_protocols)), definitions)
+            settings = [repr((setting.name, setting.__get__(self), setting.supporting_protocols)) for setting in definitions]
             return '[' + ', '.join(settings) + ']'
 
         def __str__(self):
@@ -1039,10 +1038,7 @@ class SearchCommand(object):
         def iteritems(self):
             definitions = type(self).configuration_setting_definitions
             version = self.command.protocol_version
-            return ifilter(
-                lambda name_value1: name_value1[1] is not None, imap(
-                    lambda setting: (setting.name, setting.__get__(self)), ifilter(
-                        lambda setting: setting.is_supported_by_protocol(version), definitions)))
+            return [name_value1 for name_value1 in [(setting.name, setting.__get__(self)) for setting in [setting for setting in definitions if setting.is_supported_by_protocol(version)]] if name_value1[1] is not None]
 
         items = iteritems
 

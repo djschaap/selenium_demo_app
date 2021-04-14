@@ -50,7 +50,7 @@ class Service(service.Service):
         service.Service.__init__(self, executable_path, port=port, log_file=open(log_path, 'w'))
 
     def _args_contain(self, arg):
-        return len(list(filter(lambda x: x.startswith(arg), self.service_args))) > 0
+        return len(list([x for x in self.service_args if x.startswith(arg)])) > 0
 
     def command_line_args(self):
         return self.service_args + ["--webdriver=%d" % self.port]

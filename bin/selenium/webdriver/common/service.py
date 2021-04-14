@@ -120,8 +120,8 @@ class Service(object):
             URLError = url_request.URLError
         except ImportError:
             import urllib2 as url_request
-            import urllib2
-            URLError = urllib2.URLError
+            import urllib.request, urllib.error, urllib.parse
+            URLError = urllib.error.URLError
 
         try:
             url_request.urlopen("%s/shutdown" % self.service_url)

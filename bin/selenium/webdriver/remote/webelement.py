@@ -29,12 +29,12 @@ from .command import Command
 
 # Python 3 imports
 try:
-    str = basestring
+    str = str
 except NameError:
     pass
 
 try:
-    from StringIO import StringIO as IOStream
+    from io import StringIO as IOStream
 except ImportError:  # 3+
     from io import BytesIO as IOStream
 

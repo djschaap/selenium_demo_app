@@ -26,7 +26,7 @@ import urllib3
 try:
     from urllib import parse
 except ImportError:  # above is available in py3+, below is py2.7
-    import urlparse as parse
+    import urllib.parse as parse
 
 from selenium.webdriver.common import utils as common_utils
 from selenium import __version__

@@ -35,7 +35,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.html5.application_cache import ApplicationCache
 
 try:
-    str = basestring
+    str = str
 except NameError:
     pass
 
@@ -76,7 +76,7 @@ def _make_w3c_caps(caps):
     always_match = {}
     if caps.get('proxy') and caps['proxy'].get('proxyType'):
         caps['proxy']['proxyType'] = caps['proxy']['proxyType'].lower()
-    for k, v in caps.items():
+    for k, v in list(caps.items()):
         if v and k in _OSS_W3C_CONVERSION:
             always_match[_OSS_W3C_CONVERSION[k]] = v.lower() if k == 'platform' else v
         if k in _W3C_CAPABILITY_NAMES or ':' in k:
@@ -266,7 +266,7 @@ class WebDriver(object):
     def _wrap_value(self, value):
         if isinstance(value, dict):
             converted = {}
-            for key, val in value.items():
+            for key, val in list(value.items()):
                 converted[key] = self._wrap_value(val)
             return converted
         elif isinstance(value, self._web_element_cls):
@@ -289,7 +289,7 @@ class WebDriver(object):
                 else:
                     return self.create_web_element(value['element-6066-11e4-a52e-4f735466cecf'])
             else:
-                for key, val in value.items():
+                for key, val in list(value.items()):
                     value[key] = self._unwrap_value(val)
                 return value
         elif isinstance(value, list):

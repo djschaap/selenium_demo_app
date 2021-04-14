@@ -99,7 +99,7 @@ def parse_version(major=None, minor=None, patch=None, patch_minor=None):
     patch_minor = verify_attribute(patch_minor)
 
     return tuple(
-        filter(lambda x: x is not None, (major, minor, patch, patch_minor))
+        [x for x in (major, minor, patch, patch_minor) if x is not None]
     )
 
 
@@ -145,7 +145,7 @@ class UserAgent(object):
         return " / ".join([device, os, browser])
 
     def __unicode__(self):
-        return unicode(str(self))
+        return str(str(self))
 
     def _is_android_tablet(self):
         # Newer Android tablets don't have "Mobile" in their user agent string,

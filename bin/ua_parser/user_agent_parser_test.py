@@ -23,7 +23,7 @@ or like:
 """
 
 
-from __future__ import unicode_literals, absolute_import
+
 
 __author__ = 'slamm@google.com (Stephen Lamm)'
 
@@ -101,7 +101,7 @@ class ParseTest(unittest.TestCase):
     def makePGTSComparisonYAML(self):
         import codecs
         outfile = codecs.open('outfile.yaml', 'w', 'utf-8')
-        print >> outfile, "test_cases:"
+        print("test_cases:", file=outfile)
 
         yamlFile = open(os.path.join(TEST_RESOURCES_DIR,
                                      'pgts_browser_list.yaml'))
@@ -118,11 +118,11 @@ class ParseTest(unittest.TestCase):
 
             # Escape any double-quotes in the UA string
             user_agent_string = re.sub(r'"', '\\"', user_agent_string)
-            print >> outfile, '    - user_agent_string: "' + user_agent_string + '"' + "\n" +\
+            print('    - user_agent_string: "' + user_agent_string + '"' + "\n" +\
                               '      family: "' + family + "\"\n" +\
                               "      major: " + ('' if (major is None) else "'" + major + "'") + "\n" +\
                               "      minor: " + ('' if (minor is None) else "'" + minor + "'") + "\n" +\
-                              "      patch: " + ('' if (patch is None) else "'" + patch + "'")
+                              "      patch: " + ('' if (patch is None) else "'" + patch + "'"), file=outfile)
         outfile.close()
 
     # Run a set of test cases from a YAML file

@@ -46,9 +46,9 @@ from selenium.common.exceptions import (ElementClickInterceptedException,
                                         WebDriverException)
 
 try:
-    basestring
+    str
 except NameError:  # Python 3.x
-    basestring = str
+    str = str
 
 
 class ErrorCode(object):
@@ -119,17 +119,17 @@ class ErrorHandler(object):
         stacktrace = None
         if isinstance(status, int):
             value_json = response.get('value', None)
-            if value_json and isinstance(value_json, basestring):
+            if value_json and isinstance(value_json, str):
                 import json
                 try:
                     value = json.loads(value_json)
-                    if len(value.keys()) == 1:
+                    if len(list(value.keys())) == 1:
                         value = value['value']
                     status = value.get('error', None)
                     if status is None:
                         status = value["status"]
                         message = value["value"]
-                        if not isinstance(message, basestring):
+                        if not isinstance(message, str):
                             value = message
                             message = message.get('message')
                     else:
@@ -202,7 +202,7 @@ class ErrorHandler(object):
             exception_class = WebDriverException
         if value == '' or value is None:
             value = response['value']
-        if isinstance(value, basestring):
+        if isinstance(value, str):
             if exception_class == ErrorInResponseException:
                 raise exception_class(response, value)
             raise exception_class(value)

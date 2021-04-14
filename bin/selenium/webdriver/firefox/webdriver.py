@@ -17,9 +17,9 @@
 import warnings
 
 try:
-    basestring
+    str
 except NameError:  # Python 3.x
-    basestring = str
+    str = str
 
 import shutil
 import sys
@@ -135,12 +135,12 @@ class WebDriver(RemoteWebDriver):
         # firefox_binary and firefox_profile
         # override options
         if firefox_binary is not None:
-            if isinstance(firefox_binary, basestring):
+            if isinstance(firefox_binary, str):
                 firefox_binary = FirefoxBinary(firefox_binary)
             self.binary = firefox_binary
             options.binary = firefox_binary
         if firefox_profile is not None:
-            if isinstance(firefox_profile, basestring):
+            if isinstance(firefox_profile, str):
                 firefox_profile = FirefoxProfile(firefox_profile)
             self.profile = firefox_profile
             options.profile = firefox_profile
@@ -209,7 +209,7 @@ class WebDriver(RemoteWebDriver):
                 if self.profile.tempfolder is not None:
                     shutil.rmtree(self.profile.tempfolder)
             except Exception as e:
-                print(str(e))
+                print((str(e)))
 
     @property
     def firefox_profile(self):

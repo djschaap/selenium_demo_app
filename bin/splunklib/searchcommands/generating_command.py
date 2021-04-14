@@ -14,7 +14,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+
 
 from .decorators import ConfigurationSetting
 from .search_command import SearchCommand
@@ -319,10 +319,9 @@ class GeneratingCommand(SearchCommand):
             iteritems = SearchCommand.ConfigurationSettings.iteritems(self)
             version = self.command.protocol_version
             if version == 2:
-                iteritems = ifilter(lambda name_value1: name_value1[0] != 'distributed', iteritems)
+                iteritems = [name_value1 for name_value1 in iteritems if name_value1[0] != 'distributed']
                 if not self.distributed and self.type == 'streaming':
-                    iteritems = imap(
-                        lambda name_value: (name_value[0], 'stateful') if name_value[0] == 'type' else (name_value[0], name_value[1]), iteritems)
+                    iteritems = [(name_value[0], 'stateful') if name_value[0] == 'type' else (name_value[0], name_value[1]) for name_value in iteritems]
             return iteritems
 
         pass

@@ -14,7 +14,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+
 
 from splunklib.six.moves import map as imap
 
@@ -137,6 +137,6 @@ class EventingCommand(SearchCommand):
 
         def iteritems(self):
             iteritems = SearchCommand.ConfigurationSettings.iteritems(self)
-            return imap(lambda name_value: (name_value[0], 'events' if name_value[0] == 'type' else name_value[1]), iteritems)
+            return [(name_value[0], 'events' if name_value[0] == 'type' else name_value[1]) for name_value in iteritems]
 
         # endregion

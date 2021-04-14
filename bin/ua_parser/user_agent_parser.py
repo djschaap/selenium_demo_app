@@ -14,7 +14,7 @@
 
 """Python implementation of the UA parser."""
 
-from __future__ import absolute_import
+
 
 import os
 import re
@@ -443,7 +443,7 @@ def GetFilters(user_agent_string, js_user_agent_string=None,
         'js_user_agent_v2': js_user_agent_v2,
         'js_user_agent_v3': js_user_agent_v3
     }
-    for key, value in filterdict.items():
+    for key, value in list(filterdict.items()):
         if value is not None and value != '':
             filters[key] = value
     return filters

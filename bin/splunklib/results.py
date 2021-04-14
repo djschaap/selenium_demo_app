@@ -32,7 +32,7 @@ as follows:::
     print "Results are a preview: %s" % reader.is_preview
 """
 
-from __future__ import absolute_import
+
 
 from io import BytesIO
 
@@ -206,7 +206,7 @@ class ResultsReader(object):
     def __iter__(self):
         return self
 
-    def next(self):
+    def __next__(self):
         return next(self._gen)
 
     __next__ = next

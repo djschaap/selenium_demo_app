@@ -76,7 +76,7 @@ class Color(object):
             return Color(*rgb)
         elif m.match(HSL_PATTERN, str_) or m.match(HSLA_PATTERN, str_):
             return Color._from_hsl(*m.groups)
-        elif str_.upper() in Colors.keys():
+        elif str_.upper() in list(Colors.keys()):
             return Colors[str_.upper()]
         else:
             raise ValueError("Could not convert %s into color" % str_)

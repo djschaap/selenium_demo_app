@@ -14,7 +14,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-from __future__ import absolute_import, division, print_function
+
 
 from collections import deque, namedtuple
 from splunklib import six
@@ -259,7 +259,7 @@ class ConfigurationSettingsType(type):
             if isinstance(specification.type, type):
                 type_names = specification.type.__name__
             else:
-                type_names = ', '.join(imap(lambda t: t.__name__, specification.type))
+                type_names = ', '.join([t.__name__ for t in specification.type])
             raise ValueError('Expected {} value, not {}={}'.format(type_names, name, repr(value)))
         if specification.constraint and not specification.constraint(value):
             raise ValueError('Illegal value: {}={}'.format(name, repr(value)))
@@ -539,7 +539,7 @@ class RecordWriter(object):
 
         if fieldnames is None:
             self._fieldnames = fieldnames = list(record.keys())
-            value_list = imap(lambda fn: (str(fn), str('__mv_') + str(fn)), fieldnames)
+            value_list = [(str(fn), str('__mv_') + str(fn)) for fn in fieldnames]
             self._writerow(list(chain.from_iterable(value_list)))
 
         get_value = record.get

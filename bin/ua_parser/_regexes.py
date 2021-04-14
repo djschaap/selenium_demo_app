@@ -5,7 +5,7 @@
 # instead, re-run `setup.py build_regexes` #
 ############################################
 
-from __future__ import absolute_import, unicode_literals
+
 from .user_agent_parser import (
     UserAgentParser, DeviceParser, OSParser,
 )
@@ -575,7 +575,7 @@ USER_AGENT_PARSERS = [
     ),
     UserAgentParser(
         '(SznProhlizec)/(\\d+)\\.(\\d+)(?:\\.(\\d+))?',
-        u'Seznam prohl\xed\u017ee\u010d',
+        'Seznam prohl\xed\\u017ee\\u010d',
         None,
         None,
     ),

@@ -8,7 +8,7 @@ if PY3:
     def iteritems(d, **kw):
         return iter(d.items(**kw))
 else:
-    string_types = basestring
+    string_types = str
 
     def iteritems(d, **kw):
         return iter(d.iteritems(**kw))

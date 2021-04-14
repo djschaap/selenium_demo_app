@@ -14,7 +14,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+
 from splunklib import six
 
 try:
@@ -197,7 +197,7 @@ class ConfigurationSetting(property):
 
         if len(values) > 0:
             settings = sorted(list(six.iteritems(values)))
-            settings = imap(lambda n_v: '{}={}'.format(n_v[0], repr(n_v[1])), settings)
+            settings = ['{}={}'.format(n_v[0], repr(n_v[1])) for n_v in settings]
             raise AttributeError('Inapplicable configuration settings: ' + ', '.join(settings))
 
         cls.configuration_setting_definitions = definitions
@@ -421,7 +421,7 @@ class Option(property):
             OrderedDict.__init__(self, ((option.name, item_class(command, option)) for (name, option) in definitions))
 
         def __repr__(self):
-            text = 'Option.View([' + ','.join(imap(lambda item: repr(item), six.itervalues(self))) + '])'
+            text = 'Option.View([' + ','.join([repr(item) for item in six.itervalues(self)]) + '])'
             return text
 
         def __str__(self):
