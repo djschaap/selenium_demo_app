@@ -27,10 +27,7 @@ import sys
 import tempfile
 import zipfile
 
-try:
-    from io import StringIO as BytesIO
-except ImportError:
-    from io import BytesIO
+from io import BytesIO
 
 from xml.dom import minidom
 from selenium.webdriver.common.proxy import ProxyType
